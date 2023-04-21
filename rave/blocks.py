@@ -474,95 +474,6 @@ class EncoderV2(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.net(x)
 
-
-class EncoderV2Timbre(nn.Module):
-
-    def __init__(
-        self,
-        n_labels: int,
-        data_size: int,
-        capacity: int,
-        ratios: Sequence[int],
-        latent_size: int,
-        n_out: int,
-        kernel_size: int,
-        dilations: Sequence[int],
-        fc_sizes: Sequence[int],
-        keep_dim: bool = False,
-        recurrent_layer: Optional[Callable[[], nn.Module]] = None,
-    ) -> None:
-        super().__init__()
-        net = [
-            normalization(
-                cc.Conv1d(
-                    data_size,
-                    capacity,
-                    kernel_size=kernel_size * 2 + 1,
-                    padding=cc.get_padding(kernel_size * 2 + 1),
-                )),
-        ]
-
-        num_channels = capacity
-        for r in ratios:
-            # ADD RESIDUAL DILATED UNITS
-            for d in dilations:
-                net.append(
-                    Residual(
-                        DilatedUnit(
-                            dim=num_channels,
-                            kernel_size=kernel_size,
-                            dilation=d,
-                        )))
-
-            # ADD DOWNSAMPLING UNIT
-            net.append(nn.LeakyReLU(.2))
-
-            if keep_dim:
-                out_channels = num_channels * r
-            else:
-                out_channels = num_channels * 2
-            net.append(
-                normalization(
-                    cc.Conv1d(
-                        num_channels,
-                        out_channels,
-                        kernel_size=2 * r,
-                        stride=r,
-                        padding=cc.get_padding(2 * r, r),
-                    )))
-
-            num_channels = out_channels
-
-        net.append(nn.LeakyReLU(.2))
-        net.append(
-            normalization(
-                cc.Conv1d(
-                    num_channels,
-                    latent_size * n_out,
-                    kernel_size=kernel_size,
-                    padding=cc.get_padding(kernel_size),
-                )))
-
-        if recurrent_layer is not None:
-            net.append(recurrent_layer(latent_size * n_out))
-
-        self.net = cc.CachedSequential(*net)
-
-        net_fc = [nn.Flatten(1)]
-        in_features = latent_size * n_out * 32
-        for out_features in fc_sizes:
-            net_fc.append(nn.Linear(in_features, out_features))
-            net_fc.append(nn.LeakyReLU(.2))
-            in_features = out_features
-        net_fc.append(nn.Linear(in_features, n_labels))
-        net_fc.append(nn.Softmax())
-
-        self.net_fc = nn.Sequential(*net_fc)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.net_fc(self.net(x))
-
-
 class GeneratorV2(nn.Module):
 
     def __init__(
@@ -648,7 +559,7 @@ class VariationalEncoder(nn.Module):
 
     def __init__(self, encoder):
         super().__init__()
-        self.encoder = encoder()
+        self.encoder = encoder
         self.register_buffer("warmed_up", torch.tensor(0))
 
     def reparametrize(self, z):

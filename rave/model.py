@@ -6,14 +6,14 @@ import numpy as np
 import pytorch_lightning as pl
 import torch
 import torch.nn as nn
-from torchmetrics.classification import Accuracy
+from torchmetrics.classification import MulticlassAccuracy
 from einops import rearrange
 from sklearn.decomposition import PCA
 
 import rave.core
 
 from .balancer import Balancer
-from .blocks import DiscreteEncoder, VariationalEncoder, EncoderV2Timbre
+from .blocks import DiscreteEncoder, VariationalEncoder, EncoderV2
 
 
 class Profiler:
@@ -397,26 +397,25 @@ class RAVE(pl.LightningModule):
         tb.add_text("model", model)
 
 
-class TimbreEncoder(pl.LightningModule):
+class TimbreClassifier(pl.LightningModule):
 
     def __init__(self,
                  n_labels,
-                 data_size,
-                 n_out,
                  latent_size,
                  sampling_rate,
                  lr,
-                 kernel_size,
-                 dilations,
-                 ratios,
                  fc_sizes,
-                 capacity,
+                 encoder=None,
                  pqmf: Optional[Callable[[], nn.Module]] = None):
         super().__init__()
 
         self.pqmf = None
         if pqmf is not None:
             self.pqmf = pqmf
+
+        self.encoder = None
+        if encoder is not None:
+            self.encoder = encoder
 
         self.n_labels = n_labels
         self.loss = nn.CrossEntropyLoss()
@@ -426,27 +425,30 @@ class TimbreEncoder(pl.LightningModule):
         self.sr = sampling_rate
         self.eval_number = 0
 
-        self.encoder = EncoderV2Timbre(
-            n_labels=n_labels,
-            data_size=data_size,
-            capacity=capacity,
-            ratios=ratios,
-            latent_size=latent_size,
-            n_out=n_out,
-            kernel_size=kernel_size,
-            dilations=dilations,
-            fc_sizes=fc_sizes,
-            keep_dim=False,
-            recurrent_layer=None
-        )
 
-        self.mla = ClassificationAccuracy(num_labels=n_labels, average=None)
+        self.mca = MulticlassAccuracy(num_classes=n_labels)
+
+        net = [nn.Flatten(1)]
+        in_features = 1024
+        for out_features in fc_sizes:
+            net.append(nn.Linear(in_features, out_features))
+            net.append(nn.LeakyReLU(.2))
+            in_features = out_features
+        net.append(nn.Linear(in_features, n_labels))
+        net.append(nn.Softmax(dim=1))
+
+        self.classifier = nn.Sequential(*net)
+
 
     def forward(self, x):
         if self.pqmf is not None:
-            x = self.pqmf(x)
-        x = self.encoder(x)
-        return x
+            x_multiband = self.pqmf(x)
+        else:
+            x_multiband = x
+
+        # ENCODE INPUT
+        z, _ = self.encoder(x_multiband)
+        return self.classifier(x)
 
     def training_step(self, batch, batch_idx):
         _, loss, acc = self._get_preds_loss_accuracy(batch)
@@ -465,12 +467,13 @@ class TimbreEncoder(pl.LightningModule):
         return preds
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.lr)
+        return torch.optim.Adam(self.classifier.parameters(), lr=self.lr)
 
     def _get_preds_loss_accuracy(self, batch):
         x, y = batch
         x = x.unsqueeze(1)
-        preds = self(x)
-        loss = self.loss(preds, y)
-        acc = self.mla(preds, y)
+        logits = self(x)
+        preds = torch.argmax(logits, dim=1)
+        loss = self.loss(logits, y)
+        acc = self.mca(preds, y)
         return preds, loss, acc

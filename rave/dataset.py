@@ -42,7 +42,7 @@ class AudioDataset(data.Dataset):
     def __init__(self,
                  db_path: str,
                  audio_key: str = 'waveform',
-                 label_key: str = 'qualities',
+                 label_key: str = 'instrument_family',
                  transforms: Optional[transforms.Transform] = None) -> None:
         super().__init__()
         self._db_path = db_path
@@ -67,8 +67,8 @@ class AudioDataset(data.Dataset):
         if self._transforms is not None:
             audio = self._transforms(audio)
 
-        label = np.asarray([int(c) for c in ae.metadata[self._label_key]])
-        label = label.astype(np.float)
+        label = int(ae.metadata[self._label_key])
+        #label = np.asarray([int(c) for c in ae.metadata[self._label_key]])
 
         return audio, label
 

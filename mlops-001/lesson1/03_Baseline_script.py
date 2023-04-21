@@ -15,6 +15,7 @@ import rave.dataset
 import rave.blocks
 import rave.pqmf
 
+debug = False
 
 if __name__ == '__main__':
 
@@ -23,30 +24,35 @@ if __name__ == '__main__':
         batch_size=32,
         epochs=10,
         seed=42,
-        n_labels=10,
+        n_labels=11,
         sampling_rate=16000,
-        n_signal=64000,
+        n_signal=16000,
         n_band=16,
         attenuation=100,
         latent_size=32,
         n_out=2,
-        lr=2e-5,
+        lr=2e-3,
         kernel_size=3,
-        dilations=[1, 3],
-        ratios=[4, 4, 2],
-        fc_sizes=[],
+        dilations=[],
+        ratios=[4, 2],
+        fc_sizes=[128, 64],
         capacity=24
     )
 
     # Create logger and update config
-    wandb_logger = WandbLogger(project=params.WANDB_PROJECT, config=train_config)
-    config = wandb.config
+    if debug:
+        config = train_config
+    else:
+        wandb_logger = WandbLogger(project=params.WANDB_PROJECT, config=train_config)
+        config = wandb.config
+
 
     # Set seed for reproducability
     seed_everything(train_config.seed)
 
     # Link to dataset artifact
-    data_at = wandb_logger.use_artifact(f'{params.RAW_DATA_AT}:latest')
+    if not debug:
+        data_at = wandb_logger.use_artifact(f'{params.RAW_DATA_AT}:latest')
 
     # Prepare dataset
     data_path = Path('C:/Users/Griffin/Documents/datasets/nsynth/nsynth-valid')
@@ -71,33 +77,42 @@ if __name__ == '__main__':
     )
 
     # Build model
-    pqmf = rave.pqmf.PQMF(config.attenuation, config.n_band)
-    model = rave.model.TimbreEncoder(
+    '''
+    pqmf = rave.pqmf.CachedPQMF(config.attenuation, config.n_band)
+    encoder = VariationalEncoder(EncoderV2(
+            data_size=config.data_size,
+            capacity=capacity,
+            ratios=ratios,
+            latent_size=latent_size,
+            n_out=n_out,
+            kernel_size=kernel_size,
+            dilations=dilations,
+            keep_dim=False,
+            recurrent_layer=None
+        ))
+    '''
+
+    model_pt = torch.jit.load('C:/Users/Griffin/Downloads/vintage.ts')
+    model = rave.model.TimbreClassifier(
         n_labels=config.n_labels,
-        data_size=config.n_band,
-        n_out=config.n_out,
         latent_size=config.latent_size,
         sampling_rate=config.sampling_rate,
         lr=config.lr,
-        kernel_size=config.kernel_size,
-        dilations=config.dilations,
-        ratios=config.ratios,
         fc_sizes=config.fc_sizes,
-        capacity=config.capacity,
-        pqmf=pqmf
+        encoder=model_pt._rave.encoder,
+        pqmf=model_pt._rave.pqmf
     )
 
-    print(model)
+    if not debug:
+        # Setup callbacks and trainer
+        callbacks = [ModelCheckpoint()]
+        trainer = Trainer(
+            accelerator="gpu",
+            devices=1,
+            max_epochs=config.epochs,
+            logger=wandb_logger,
+            callbacks=callbacks
+        )
 
-    # Setup callbacks and trainer
-    callbacks = [ModelCheckpoint()]
-    trainer = Trainer(
-        accelerator="gpu",
-        devices=1,
-        max_epochs=config.epochs,
-        logger=wandb_logger,
-        callbacks=callbacks
-    )
-
-    # Execute
-    trainer.fit(model, train_loader, val_loader)
+        # Execute
+        trainer.fit(model, train_loader, val_loader)
