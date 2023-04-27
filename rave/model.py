@@ -401,10 +401,10 @@ class TimbreClassifier(pl.LightningModule):
 
     def __init__(self,
                  n_labels,
-                 latent_size,
                  sampling_rate,
                  lr,
-                 fc_sizes,
+                 n_layers=4,
+                 n_features_start=256,
                  encoder=None,
                  pqmf: Optional[Callable[[], nn.Module]] = None):
         super().__init__()
@@ -417,38 +417,36 @@ class TimbreClassifier(pl.LightningModule):
         if encoder is not None:
             self.encoder = encoder
 
-        self.n_labels = n_labels
         self.loss = nn.CrossEntropyLoss()
+        self.mca = MulticlassAccuracy(num_classes=n_labels)
         self.lr = lr
 
         # CONSTANTS
+        self.n_labels = n_labels
         self.sr = sampling_rate
-        self.eval_number = 0
-
-
-        self.mca = MulticlassAccuracy(num_classes=n_labels)
 
         net = [nn.Flatten(1)]
-        in_features = 1024
-        for out_features in fc_sizes:
+        in_features = 4096
+        out_features = n_features_start
+        for i in range(n_layers):
             net.append(nn.Linear(in_features, out_features))
-            net.append(nn.LeakyReLU(.2))
+            net.append(nn.ReLU())
             in_features = out_features
+            out_features = out_features // 2
         net.append(nn.Linear(in_features, n_labels))
-        net.append(nn.Softmax(dim=1))
+        #net.append(nn.Softmax(dim=1))
 
         self.classifier = nn.Sequential(*net)
 
-
     def forward(self, x):
-        if self.pqmf is not None:
-            x_multiband = self.pqmf(x)
-        else:
-            x_multiband = x
+        with torch.no_grad():
+            if self.pqmf is not None:
+                x_multiband = self.pqmf(x)
+            else:
+                x_multiband = x
+            z = self.encoder(x_multiband)[0]
 
-        # ENCODE INPUT
-        z, _ = self.encoder(x_multiband)
-        return self.classifier(x)
+        return self.classifier(z)
 
     def training_step(self, batch, batch_idx):
         _, loss, acc = self._get_preds_loss_accuracy(batch)
