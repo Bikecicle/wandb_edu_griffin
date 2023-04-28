@@ -7,6 +7,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from types import SimpleNamespace
 from pathlib import Path
 import json
+import tqdm
 import params
 
 import wandb
@@ -15,7 +16,7 @@ import rave.dataset
 import rave.blocks
 import rave.pqmf
 
-debug = False
+DEBUG = False
 
 if __name__ == '__main__':
 
@@ -33,11 +34,11 @@ if __name__ == '__main__':
     )
 
     # Create logger and update config
-    if debug:
+    if DEBUG:
         logger = None
         config = train_config
     else:
-        logger = WandbLogger(project=params.WANDB_PROJECT, config=train_config)
+        logger = WandbLogger(project=params.WANDB_PROJECT, config=train_config, log_model=True)
         config = wandb.config
 
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
     seed_everything(train_config.seed)
 
     # Link to dataset artifact
-    if not debug:
+    if not DEBUG:
         data_at = logger.use_artifact(f'{params.RAW_DATA_AT}:latest')
 
     # Prepare dataset
@@ -96,3 +97,22 @@ if __name__ == '__main__':
 
     # Execute
     trainer.fit(model, train_loader, val_loader)
+
+    table_data = []
+    for i, batch in tqdm.tqdm(enumerate(val_loader)):
+        _, y = batch
+        p = model.predict_step(batch, i)
+        for inst_y, inst_p in zip(y.tolist(), p.tolist()):
+            table_data.append([
+                params.NSYNTH_CLASSES[inst_y],
+                params.NSYNTH_CLASSES[inst_p]
+            ])
+
+    if not DEBUG:
+        logger.log_table(
+            key='pred_table',
+            columns=['True_Instrument', 'Predicted_Instrument'],
+            data=table_data
+        )
+
+

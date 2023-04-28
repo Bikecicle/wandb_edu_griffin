@@ -72,12 +72,13 @@ def load_audio_chunk(path: str, n_signal: int,
     chunk = process.stdout.read(n_signal * 2)
 
     path = pathlib.Path(path)
+    note_str = labels[path.stem]['note_str']
     qualities = ''.join([str(q) for q in labels[path.stem]['qualities']])
     instrument_source = str(labels[path.stem]['instrument_source'])
     instrument_family = str(labels[path.stem]['instrument_family'])
 
     while len(chunk) == n_signal * 2:
-        yield (chunk, qualities, instrument_source, instrument_family)
+        yield (chunk, note_str, qualities, instrument_source, instrument_family)
         chunk = process.stdout.read(n_signal * 2)
 
     process.stdout.close()
@@ -108,10 +109,10 @@ def flatten(iterator: Iterable):
             yield sub_elm
 
 
-def process_audio_array(audio: Tuple[int, Tuple[bytes, str, str, str]],
+def process_audio_array(audio: Tuple[int, Tuple[bytes, str, str, str, str]],
                         env: lmdb.Environment) -> int:
     audio_id, audio_samples = audio
-    audio_samples, qualities, instrument_source, instrument_family = audio_samples
+    audio_samples, note_str, qualities, instrument_source, instrument_family = audio_samples
 
     buffers = {}
     buffers['waveform'] = AudioExample.AudioBuffer(
@@ -121,7 +122,8 @@ def process_audio_array(audio: Tuple[int, Tuple[bytes, str, str, str]],
     )
 
     ae = AudioExample(buffers=buffers,
-                      metadata={'qualities': qualities,
+                      metadata={'note_str': note_str,
+                                'qualities': qualities,
                                 'instrument_source': instrument_source,
                                 'instrument_family': instrument_family})
     key = f'{audio_id:08d}'

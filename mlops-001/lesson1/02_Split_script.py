@@ -22,7 +22,7 @@ if __name__ == '__main__':
     pqmf = model._rave.pqmf
     encoder = model._rave.encoder
     with torch.no_grad():
-        x = dataset[0]['data'].unsqueeze(0)
+        x = dataset[0]['data'].unsqueeze(0)e
         x = pqmf(x)
         x = encoder(x)
         print(x)

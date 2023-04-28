@@ -464,6 +464,10 @@ class TimbreClassifier(pl.LightningModule):
         self.log('val_accuracy', acc)
         return preds
 
+    def predict_step(self, batch, batch_idx, dataloader_idx=0):
+        preds, _, _ = self._get_preds_loss_accuracy(batch)
+        return preds
+
     def configure_optimizers(self):
         return torch.optim.Adam(self.classifier.parameters(), lr=self.lr)
 
