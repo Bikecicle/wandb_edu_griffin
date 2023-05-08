@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="005e65db-e8c0-4a23-a165-4294303f81da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlops-001/lesson1/03_Baseline.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson1/03_Baseline.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_local.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_local.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlops-001/lesson2/03_Baseline.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson2/03_Baseline.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlops-001/lesson2/params.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson2/params.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mlops-001/lesson2/sweep.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/mlops-001/lesson2/sweep.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +21,8 @@
       <file leaf-file-name="baseline_refactor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="120" column="22" selection-start-line="120" selection-start-column="22" selection-end-line="120" selection-end-column="22" />
+            <state relative-caret-position="432">
+              <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -27,53 +30,89 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/train.py">
+      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rave/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-595">
-              <caret line="46" selection-start-line="46" selection-end-line="50" selection-end-column="32" />
+            <state relative-caret-position="2193">
+              <caret line="455" column="39" lean-forward="true" selection-start-line="455" selection-start-column="39" selection-end-line="455" selection-end-column="39" />
               <folding>
-                <element signature="e#54#73#0" expanded="true" />
+                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#1946#11935#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="preprocess.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rave/preprocess.py">
+      <file leaf-file-name="blocks.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rave/blocks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="101" column="11" selection-start-line="101" selection-start-column="11" selection-end-line="101" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rave/dataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="63" column="58" selection-start-line="63" selection-start-column="58" selection-end-line="63" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="02_Split_script.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/02_Split_script.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+            <state relative-caret-position="268">
+              <caret line="412" column="33" selection-start-line="406" selection-start-column="8" selection-end-line="412" selection-end-column="33" />
               <folding>
-                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#0#29#0" expanded="true" />
+                <element signature="e#1167#2001#0" />
+                <element signature="e#2039#2829#0" />
+                <element signature="e#2869#3605#0" />
+                <element signature="e#3663#4199#0" />
+                <element signature="e#4239#5031#0" />
+                <element signature="e#5090#6473#0" />
+                <element signature="e#6509#9361#0" />
+                <element signature="e#9395#11620#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wandb.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/envs/wandb_edu/Lib/site-packages/pytorch_lightning/loggers/wandb.py">
+      <file leaf-file-name="v2.gin" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rave/configs/v2.gin">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7174">
-              <caret line="437" column="8" selection-start-line="437" selection-start-column="8" selection-end-line="437" selection-end-column="8" />
+            <state relative-caret-position="221">
+              <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="v1.gin" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rave/configs/v1.gin">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pqmf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rave/pqmf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1169">
+              <caret line="237" selection-start-line="237" selection-end-line="237" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="03_Baseline_script.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_script.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="16" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="params.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/params.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="2" selection-start-column="2" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sweep.yaml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/sweep.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -112,11 +151,12 @@
         <option value="$PROJECT_DIR$/mlops-001/lesson1/02_Spllit_script.py" />
         <option value="$PROJECT_DIR$/mlops-001/lesson1/dataset.py" />
         <option value="$PROJECT_DIR$/mlops-001/lesson1/02_Split_script.py" />
-        <option value="$PROJECT_DIR$/rave/model.py" />
         <option value="$PROJECT_DIR$/rave/preprocess.py" />
         <option value="$PROJECT_DIR$/rave/dataset.py" />
+        <option value="$PROJECT_DIR$/mlops-001/lesson2/sweep.yaml" />
         <option value="$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_script.py" />
         <option value="$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py" />
+        <option value="$PROJECT_DIR$/rave/model.py" />
       </list>
     </option>
   </component>
@@ -131,52 +171,60 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="wandb-edu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wandb-edu" type="462c0819:PsiDirectoryNode" />
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="wandb-edu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wandb-edu" type="462c0819:PsiDirectoryNode" />
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
               <item name="mlops-001" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="wandb-edu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wandb-edu" type="462c0819:PsiDirectoryNode" />
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
               <item name="mlops-001" type="462c0819:PsiDirectoryNode" />
               <item name="lesson1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="wandb-edu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wandb-edu" type="462c0819:PsiDirectoryNode" />
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
               <item name="mlops-001" type="462c0819:PsiDirectoryNode" />
               <item name="lesson2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="wandb-edu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wandb-edu" type="462c0819:PsiDirectoryNode" />
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
               <item name="rave" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wandb_edu_griffin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wandb_edu_griffin" type="462c0819:PsiDirectoryNode" />
+              <item name="rave" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Griffin\Documents\GitHub\wandb-edu\rave" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Griffin\Documents\Github\wandb_edu_griffin\mlops-001\lesson2" />
+      <recent name="C:\Users\Griffin\Documents\Github\wandb_edu_griffin\mlops-001\lesson2\wandb" />
       <recent name="C:\Users\Griffin\Documents\Github\wandb-edu\mlops-001\lesson2" />
       <recent name="C:\Users\Griffin\Documents\GitHub\wandb-edu" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Griffin\Documents\GitHub\wandb-edu\rave" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -314,6 +362,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -355,40 +404,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rave/blocks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#1167#2001#0" />
-            <element signature="e#2039#2829#0" />
-            <element signature="e#2869#3605#0" />
-            <element signature="e#3663#4199#0" />
-            <element signature="e#4239#5031#0" />
-            <element signature="e#5090#6473#0" />
-            <element signature="e#6509#9361#0" />
-            <element signature="e#9395#11620#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_local.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/01_EDA_local.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mlops-001/model/core.py" />
-    <entry file="file://$PROJECT_DIR$/mlops-001/model/__init__.py" />
     <entry file="file://$PROJECT_DIR$/mlops-001/model/RAVE_encoder_only.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/functools.pyi">
       <provider selected="true" editor-type-id="text-editor">
@@ -432,13 +447,6 @@
     <entry file="file://$PROJECT_DIR$/rave/configs/raspberry.gin">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rave/configs/v1.gin">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1887">
-          <caret line="111" column="8" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/wandb_edu/Lib/site-packages/torch/nn/functional.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2849">
@@ -460,13 +468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19805">
           <caret line="1173" selection-start-line="1173" selection-end-line="1173" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rave/pqmf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3876">
-          <caret line="237" selection-start-line="237" selection-end-line="237" />
         </state>
       </provider>
     </entry>
@@ -506,31 +507,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/load_rave.py" />
-    <entry file="file://$PROJECT_DIR$/rave/configs/v2.gin">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rave/blocks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2448">
-          <caret line="474" selection-start-line="474" selection-end-line="474" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#1167#2001#0" />
-            <element signature="e#2039#2829#0" />
-            <element signature="e#2869#3605#0" />
-            <element signature="e#3663#4199#0" />
-            <element signature="e#4239#5031#0" />
-            <element signature="e#5090#6473#0" />
-            <element signature="e#6509#9361#0" />
-            <element signature="e#9395#11620#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/dataset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -611,13 +587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_local.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/01_EDA_local.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -639,44 +608,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rave/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="475" column="26" selection-start-line="475" selection-start-column="26" selection-end-line="475" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#1946#11935#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rave/dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
+        <state relative-caret-position="816">
           <caret line="63" column="58" selection-start-line="63" selection-start-column="58" selection-end-line="63" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rave/preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="101" column="11" selection-start-line="101" selection-start-column="11" selection-end-line="101" selection-end-column="11" />
+        <state relative-caret-position="357">
+          <caret line="38" column="37" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/wandb/params.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/params.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2" selection-start-column="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/03_Baseline.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson1/03_Baseline_local.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-595">
+        <state relative-caret-position="17">
           <caret line="46" selection-start-line="46" selection-end-line="50" selection-end-column="32" />
           <folding>
             <element signature="e#54#73#0" expanded="true" />
@@ -684,10 +673,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/sweep.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/pqmf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1169">
+          <caret line="237" selection-start-line="237" selection-end-line="237" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/configs/v1.gin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/blocks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="412" column="33" selection-start-line="406" selection-start-column="8" selection-end-line="412" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#1167#2001#0" />
+            <element signature="e#2039#2829#0" />
+            <element signature="e#2869#3605#0" />
+            <element signature="e#3663#4199#0" />
+            <element signature="e#4239#5031#0" />
+            <element signature="e#5090#6473#0" />
+            <element signature="e#6509#9361#0" />
+            <element signature="e#9395#11620#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/configs/v2.gin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rave/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2193">
+          <caret line="455" column="39" lean-forward="true" selection-start-line="455" selection-start-column="39" selection-end-line="455" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#1946#11935#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mlops-001/lesson2/baseline_refactor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="120" column="22" selection-start-line="120" selection-start-column="22" selection-end-line="120" selection-end-column="22" />
+        <state relative-caret-position="432">
+          <caret line="115" column="22" lean-forward="true" selection-start-line="115" selection-start-column="22" selection-end-line="115" selection-end-column="22" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

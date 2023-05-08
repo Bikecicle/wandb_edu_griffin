@@ -9,14 +9,17 @@ from pathlib import Path
 import tqdm
 import params
 import argparse
-
 import wandb
+
+import sys
+sys.path.insert(0, 'C:\\Users\\Griffin\\Documents\\GitHub\\wandb_edu_griffin')
+
 import rave
 import rave.dataset
 import rave.blocks
 import rave.pqmf
 
-DEBUG = False
+DEBUG = True
 
 default_config = SimpleNamespace(
     framework="RAVEV2Encoder",
@@ -26,9 +29,10 @@ default_config = SimpleNamespace(
     n_labels=11,
     sampling_rate=16000,
     n_signal=64000,
-    lr=2e-3,
+    lr=1e-3,
     n_layers=2,
-    n_features_start=128
+    n_features_start=128,
+    log_preds=True
 )
 
 
@@ -47,6 +51,8 @@ def parse_args():
                            help='number of fully-connected layers after encoder')
     argparser.add_argument('--n_features_start', type=int, default=default_config.n_features_start,
                            help='size of starting fc layer - subsequent layers are each half of the previous')
+    argparser.add_argument('--log_preds', type=bool, default=default_config.n_features_start,
+                           help='whether to log a wandb table with all predictions')
     args = argparser.parse_args()
     vars(default_config).update(vars(args))
     return
@@ -99,7 +105,19 @@ def train(config):
         data_at = logger.use_artifact(f'{params.RAW_DATA_AT}:latest')
 
     # Build model
-    pt_model = torch.jit.load('C:/Users/Griffin/ml/models/rave/vintage.ts')
+    '''
+    pqmf = rave.pqmf.CachedPQMF(attenuation=100, n_band=16)
+    encoder = rave.blocks.VariationalEncoder(rave.blocks.EncoderV2(
+        data_size=16,
+        capacity=96,
+        ratios=[4, 4, 4, 2],
+        latent_size=128,
+        n_out=2,
+        kernel_size=3,
+        dilations=[1, 3, 9]
+    ))
+    '''
+    pt_model = torch.jit.load('C:/Users/Griffin/ml/models/rave/vintage.ts', map_location=torch.device('cuda'))
     model = rave.model.TimbreClassifier(
         n_labels=config.n_labels,
         sampling_rate=config.sampling_rate,
@@ -128,17 +146,16 @@ def train(config):
     # Execute
     trainer.fit(model, train_loader, val_loader)
 
-    table_data = []
-    for i, batch in tqdm.tqdm(enumerate(val_loader)):
-        _, y = batch
-        p = model.predict_step(batch, i)
-        for inst_y, inst_p in zip(y.tolist(), p.tolist()):
-            table_data.append([
-                params.NSYNTH_CLASSES[inst_y],
-                params.NSYNTH_CLASSES[inst_p]
-            ])
-
-    if not DEBUG:
+    if not DEBUG and config.log_preds:
+        table_data = []
+        for i, batch in tqdm.tqdm(enumerate(val_loader)):
+            _, y = batch
+            p = model.predict_step(batch, i)
+            for inst_y, inst_p in zip(y.tolist(), p.tolist()):
+                table_data.append([
+                    params.NSYNTH_CLASSES[inst_y],
+                    params.NSYNTH_CLASSES[inst_p]
+                ])
         logger.log_table(
             key='pred_table',
             columns=['True_Instrument', 'Predicted_Instrument'],
