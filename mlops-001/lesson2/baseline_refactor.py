@@ -19,7 +19,7 @@ import rave.dataset
 import rave.blocks
 import rave.pqmf
 
-DEBUG = True
+DEBUG = False
 
 default_config = SimpleNamespace(
     framework="RAVEV2Encoder",

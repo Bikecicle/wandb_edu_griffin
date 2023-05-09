@@ -9,8 +9,8 @@ project: mlops-course-001
 
 # Metric to optimize
 metric:
-  name: val_accuracy
-  goal: maximize
+  name: val_loss
+  goal: minimize
 
 
 # Parameters space to search
@@ -22,7 +22,7 @@ parameters:
     min: 1e-5
     max: 1e-2
   batch_size:
-    values: [8, 16, 32]
+    values: [16, 32, 64]
   n_layers:
     values: [1, 2, 3]
   n_features_start:
